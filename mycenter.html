@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+	</head>
+		
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">用户中心</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<div style="width:345px; height:70px; border:solid ghostwhite 1px; background-color:ghostwhite; margin-top:-18px;">
+					<p style="margin-top:30px;margin-left:30px;">昵称</p>
+					<h4 style="margin-top:-30px;margin-left:270px;"></h4>
+				</div><br>
+				<div style="width:345px; height:40px; border:solid ghostwhite 1px; background-color:ghostwhite; margin-top:-18px;">
+					<p style="margin-top:10px;margin-left:30px;">手机号</p>
+					<p style="margin-top:-30px;margin-left:260px;"></p>
+				</div><br><br>
+				<div style="width:345px; height:40px; border:solid ghostwhite 1px; background-color:ghostwhite; margin-top:-18px;">
+					<p style="margin-top:10px;margin-left:30px;">email</p>
+					<p style="margin-top:-30px;margin-left:260px;"></p>
+				</div><br><br>
+				<div>
+					<button id='logout' class="mui-btn mui-btn-yellow mui-btn-primary" style="width:345px;">注销</button>
+				</div>
+			</div>
+		</div>
+		
+		<script src="js/mui.js"></script>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			
+			$('#logout').click(function() {
+				var storage = window.localStorage;
+				var u_id = storage.u_id;
+				$.post(
+					"http://passport.qianqianya.xyz/quit", {
+						u_id: u_id
+					},
+					function(msg) {
+						window.location.href = "login.html";
+					}
+				)
+			})
+		</script>
+	</body>
+
+</html>
