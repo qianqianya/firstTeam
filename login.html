@@ -87,7 +87,6 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<h1 class="mui-title">登录</h1>
-			<button id='homepage' class=" mui-pull-right mui-btn-link">首页</button>
 		</header>
 		<div class="mui-content">
 			<form id='login-form' class="mui-input-group">
@@ -142,7 +141,7 @@
 					return false;
 				}
 				$.post(
-					'http://passport.qianqianya.xyz/api/login', {
+					'http://firstteam.qianqianya.xyz/api/login', {
 						u_email: u_email,
 						u_pwd: u_pwd
 					},
