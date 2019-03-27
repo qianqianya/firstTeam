@@ -103,7 +103,12 @@
 						success:function(data){
 							if(data.errno==200){ 
 								alert(data.msg)
-								window.location.href = 'main.html';
+								mui.openWindow({
+									url: 'main.html',
+									show: {
+										aniShow: true
+									},
+								})
 								
 							}else{
 								alert(data.msg) 	
