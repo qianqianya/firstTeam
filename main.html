@@ -59,7 +59,7 @@
 		
 		</div>
 		
-			<div class="mui-content">
+		<div class="mui-content">
 			<div class="mui-content-padded">
 				
 				<div id="box"> </div>
@@ -94,7 +94,7 @@
 				} else{
 					login();
 				}
-			})
+			});
 			$('#mycenter').click(function() {
 				var storage = window.localStorage;
 				var u_id=storage.u_id;
@@ -146,7 +146,7 @@
 							"</tr>";
 					})
 
-					$('#box').html(_tr) 
+					$('#box').html(_tr); 
 				}, 
 					error: function(data) {
 						// alert(146); 
@@ -175,7 +175,8 @@
 					// alert(146); 
 					// alert(data.msg); 
 				}
-			});
+				});
+			})
 
 			function onclicks(goods_id) {
 
@@ -185,7 +186,7 @@
 						goods_id: goods_id
 					}
 				});
-			}
+			};
 			
 		
 		</script>
