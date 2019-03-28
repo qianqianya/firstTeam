@@ -16,6 +16,7 @@
 			padding: 10px;
 		}
 	</style>
+	
 </head>
 <body>  <!--首页头部-->
 	<header class="mui-bar mui-bar-nav">
@@ -133,7 +134,6 @@
 				GetCount();
 			}
 		})
-<<<<<<< HEAD
 		$('#set').click(function() {
 			mui.openWindow({
 				url: 'setting.html',
@@ -150,42 +150,41 @@
 				},
 			})
 		})
-=======
-	
-	  // 提交订单  sub
-		$('#sub').click(function(){
-			  // 获取总价格   
-				var money = $('#money').html() 
-				var num = $('#num').val()
-				// 商品总数
-				
-				var storage = window.localStorage;
-				storage["money"] = money;  
-				storage["num"] = num;  
-							
-							
-				mui.openWindow({
-					url: 'order.html',
-					show: {
-						aniShow: true
-					},
+		// 提交订单  sub
+				$('#sub').click(function(){
+					  // 获取总价格   
+						var money = $('#money').html() 
+						var num = $('#num').val()
+						// 商品总数
+						
+						var storage = window.localStorage;
+						storage["money"] = money;  
+						storage["num"] = num;  
+									
+									
+						mui.openWindow({
+							url: 'order.html',
+							show: {
+								aniShow: true
+							},
+						})
 				})
+			
 		})
+		</script>
+		<script>
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			mui('.mui-scroll-wrapper').scroll();
+			mui('body').on('shown', '.mui-popover', function(e) {
+				//console.log('shown', e.detail.id);//detail为当前popover元素
+			});
+			mui('body').on('hidden', '.mui-popover', function(e) {
+				//console.log('hidden', e.detail.id);//detail为当前popover元素
+			});
+		</script>
 	
+	  
 	
->>>>>>> zmw
-	})
-	</script>
-	<script>
-		mui.init({
-			swipeBack: true //启用右滑关闭功能
-		});
-		mui('.mui-scroll-wrapper').scroll();
-		mui('body').on('shown', '.mui-popover', function(e) {
-			//console.log('shown', e.detail.id);//detail为当前popover元素
-		});
-		mui('body').on('hidden', '.mui-popover', function(e) {
-			//console.log('hidden', e.detail.id);//detail为当前popover元素
-		});
-	</script>
 </html>
