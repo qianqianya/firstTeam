@@ -24,10 +24,11 @@
 		<div id="mycartpay" class="g-Total-bt g-car-new">
 			<dl>
 				<dt class="gray6">
-					<p class="money-total">总金额：<em class="orange total" id="money"></em></p>
+					<p class="money-total">总金额：<em class="orange total" id="money"></em>万</p>
+					<input type="hidden" id="num">
 				</dt>
 				<dd>
-					<a href="javascript:;" class="orangeBtn w_account">提交订单</a>
+					<a href="javascript:;" class="orangeBtn w_account"  id="sub">提交订单</a>
 				</dd>
 			</dl>
 		</div>
@@ -38,7 +39,7 @@
 		<script src="js/app.js"></script> 
 <!---商品加减算总数---->
 <script type="text/javascript">
-	$(function () {
+	$(function () { 
 			var _tr;
 			mui.ajax('http://firstteam.qianqianya.xyz/cartList',{
 				// data:{		},
@@ -46,17 +47,42 @@
 				type:'get',//HTTP请求类型
 				timeout:10000,//超时时间设置为10秒；
 				success:function(data){ 
-				$.each(data,function(i,value){  
-					if(value==''){
-							
-					}else{
-						_tr+="<ul id='cartBody'><li><s class='xuan current'></s><a class='fl u-Cart-img' href='/v44/product/12501977.do'>图片</a><div class='u-Cart-r'><a href='/v44/product/12501977.do' class='gray6'>"+value.goods_name+"</a><span class='gray9' id=''goods_price'>"+value.goods_price+"</span><div class='num-opt' style='float: left;'><em class='num-mius dis min'>-</em><input class='text_box' name='num' maxlength='6' type='text' value='"+value.c_num+"' codeid='12501977'><em class='num-add add'>+</em></div><div style='float: right;'><a href='javascript:;' style='border:1px orangered solid;padding:4px;margin-right: 50px;'>删除</a></div></div></li></ul>";					
-					}   
-				}); 
+					var arr1=new Array(); 
+					var arr=new Array(); 
+					var price='';
+					var num = ''; 
+					$.each(data,function(i,value){  
+						if(value==''){
+						}else{
+							price += value.goods_price*value.c_num+",";  
+							num += value.c_num+","; 
+							_tr+="<ul id='cartBody'><li><s class='xuan current'></s><a class='fl u-Cart-img' href='/v44/product/12501977.do'>图片</a><div class='u-Cart-r'><a href='/v44/product/12501977.do' class='gray6'>"+value.goods_name+"</a><span class='gray9' id=''goods_price'>"+value.goods_price+"</span><div class='num-opt' style='float: left;'><em class='num-mius dis min'>-</em><input class='text_box' name='num' maxlength='6' type='text' value='"+value.c_num+"' codeid='12501977'><em class='num-add add'>+</em></div><div style='float: right;'><a href='javascript:;' style='border:1px orangered solid;padding:4px;margin-right: 50px;'>删除</a></div></div></li></ul>";					
+						}   
+					}); 
+					
+					basic = price.substring(0, price.lastIndexOf(','));
+					basic1 = num.substring(0, num.lastIndexOf(','));
+					 //可以用字符或字符串分割 
+					 arr1=basic1.split(',');
+					arr=basic.split(',');
+					 
+					var new_num=0
+					var new_price=0
+			    $.each(arr,function(i,value){
+							 new_price += Number(value) 
+					});
+					 $.each(arr1,function(i,value){
+					 		new_num += Number(value) 
+					 }); 
+					 
+					$('#num').val(new_num); 
+					$('#money').append(new_price);     
+					
 					if(_tr==''){
 						
 					}else{
-						$('.g-Cart-list').html(_tr); 
+						$('.g-Cart-list').html(_tr);  
+						
 					}
 				},    
 				error:function(xhr,type,errorThrown){ 
@@ -76,6 +102,28 @@
 				GetCount();
 			}
 		})
+	
+	  // 提交订单  sub
+		$('#sub').click(function(){
+			  // 获取总价格   
+				var money = $('#money').html() 
+				var num = $('#num').val()
+				// 商品总数
+				
+				var storage = window.localStorage;
+				storage["money"] = money;  
+				storage["num"] = num;  
+							
+							
+				mui.openWindow({
+					url: 'order.html',
+					show: {
+						aniShow: true
+					},
+				})
+		})
+	
+	
 	})
 	</script>
 </html>
