@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style type="text/css">
+			#login{
+				position:fixed; 
+				bottom:0;
+			}
+			#goodsMsg{
+				margin-top: 45px;
+				height: 200px;
+				border:solid 1px #2AC845; 
+			}
+			
+		</style>
+	</head>
+	<body>
+	<header class="mui-bar mui-bar-nav">
+		<h1 class="mui-title">填写订单</h1>
+	</header>
+	
+	<div id="goodsMsg">
+		<!-- 商品信息 -->	
+		<table border="1">
+			<tr><td>名称</td></tr>
+			<tr><td>购买数量</td></tr>
+			<tr><td>价格小记</td></tr>
+		</table>
+	</div>
+	   
+	<div id="payType">
+		<!-- 支付方式 -->
+		<select>
+			<option value ="">微信支付</option>
+			<option value ="">2</option>
+			<option value ="">3</option>
+		</select>
+	</div>
+	
+	
+	<div id="goodsPrice">
+		<!-- 商品金额 --> 
+		总计：￥1000
+	</div>
+	<button id='login' class="mui-btn mui-btn-block mui-btn-primary">支付</button>
+	</body>
+</html>
