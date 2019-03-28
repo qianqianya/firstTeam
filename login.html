@@ -151,7 +151,12 @@
 							var storage = window.localStorage;
 							storage["token"] = data.token;
 							storage["u_id"] = data.u_id;
-							window.location.href = 'main.html';
+							mui.openWindow({
+								url: 'main.html',
+								show: {
+									aniShow: true
+								},
+							})
 						}else{
 							alert(data.msg);
 						}
