@@ -60,7 +60,7 @@
 				 });	
 			},false);
 			
-			$('.btn').click(function() {
+			$('.btn').click(function() { 
 				var num = $('#num')[0].value;
 				var self  = plus.webview.currentWebview();
 				goods_id =  self.goods_id;
@@ -75,7 +75,7 @@
 					success:function(data){ 
 						if(data.errno=="200"){
 							alert(data.msg); 
-							url: 'reg.html',
+							url: 'cart.html',
 							show: {
 								aniShow: true
 							},

@@ -20,6 +20,7 @@
 
 	<body>
 		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">商品</h1>
 			<button id='setting' class=" mui-pull-right mui-btn-link">设置</button>
 		</header>
@@ -27,13 +28,21 @@
 			<div class="mui-content-padded">
 				
 				<div id="box"> </div>
-				
+				<a id="cart">购物车页面</a>
 			</div>
 		</div>
 		<script src="js/jquery-3.2.1.min.js"></script>
 		<script src="js/mui.min.js"></script>
 		<script src="js/app.js"></script>
 		<script>
+			$('#cart').click(){
+				mui.openWindow({
+					url: 'cart.html',
+					show: {
+						aniShow: true
+					},
+				})
+			}
 			var _tr;
 			
 			mui.ajax({  
