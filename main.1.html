@@ -7,29 +7,61 @@
 		<title></title>
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<link href="css/style.css" rel="stylesheet" />
+		<style>
+			.mui-popover {
+				height: 180px;
+			}
+			.mui-content {
+				padding: 10px;
+			}
+		</style>
 	</head>
+
 
 	<body>
 		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">商品详情</h1>
-			<button id='setting' class=" mui-pull-right mui-btn-link">设置</button>
+			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
 		</header>
+		<div id="topPopover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a href="#" id="mycenter">个人中心</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a href="#">我的收藏</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a href="#">我的赞</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a id='set'>设置</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		
+		</div>
 		<div class="mui-content">
 			<div class="mui-content-padded">
-				
+
 				<div>
 					商品名称: <span class="goods_name"></span>
 				</div>
 				<div>
 					商品价格: <span class="goods_price"></span>
 				</div>
-				<div> 
-					购买数量:<input type="number" id="num" value="1" style="width: 65px;height: 30px;">
-					<input type="hidden" >
+				<div>
+					购买数量:<input type="text" id="num" value="1" style="width: 65px;height: 30px;">
+					<input type="hidden">
 				</div>
 			</div>
 			<button class="btn">加入购物车</button>
+<<<<<<< HEAD
 			<button class='collect' id='collect'>收藏</button>
 		</div>
 	</body>
@@ -75,26 +107,118 @@
 					data:{
 						goods_id:goods_id,
 						num:num
+=======
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script src="js/mui.enterfocus.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script>
+		$('#set').click(function() {
+			mui.openWindow({
+				url: 'setting.html',
+				show: {
+					aniShow: true
+				},
+			})
+		})
+		$('#mycenter').click(function() {
+			var storage = window.localStorage;
+			var u_id=storage.u_id;
+			var token=storage.token;
+			if (u_id&&token) {
+				mui.openWindow({
+					url: 'mycenter.html',
+					show: {
+						aniShow: true
 					},
-					dataType:'json',//服务器返回json格式数据
-					type:'post',//HTTP请求类型
-					timeout:10000,//超时时间设置为10秒；
-					success:function(data){ 
-						if(data.errno=="200"){
-							alert(data.msg); 
+				})
+			} else{
+				login();
+			}
+		});
+		$('#cart').click(function() {
+			var storage = window.localStorage;
+			var u_id=storage.u_id;
+			var token=storage.token;
+			if (u_id&&token) {
+				mui.openWindow({
+					url: 'cart.html',
+					show: {
+						aniShow: true
+>>>>>>> 95ce63316f306e486b32557587b2ecb44725be7b
+					},
+				})
+			} else{
+				login();
+			}
+		});
+		function login(){
+			alert('请先登录');
+			mui.openWindow({
+				url: 'login.html',
+				show: {
+					aniShow: true
+				},
+			})
+		}
+		document.addEventListener('plusready', function() {
+			var self = plus.webview.currentWebview();
+			goods_name = localStorage.getItem("goods_name"); //获取
+
+			goods_id = self.goods_id;
+
+			mui.ajax('http://firstteam.qianqianya.xyz/api/goodsDetails', {
+				data: {
+					goods_id: goods_id
+				},
+				dataType: 'json', //服务器返回json格式数据
+				type: 'post', //HTTP请求类型
+				timeout: 10000, //超时时间设置为10秒；
+				success: function(data) {
+					$('.goods_name').html(data.goods_name);
+					$('.goods_price').html(data.goods_price);
+				},
+				error: function(xhr, type, errorThrown) {
+
+				}
+			});
+		}, false);
+
+		$('.btn').click(function() {
+			var num = $('#num')[0].value;
+			var self = plus.webview.currentWebview();
+			goods_id = self.goods_id;
+			var storage = window.localStorage;
+			var u_id=storage.u_id;
+			var token=storage.token;
+			if (u_id&&token) {
+				mui.ajax('http://firstteam.qianqianya.xyz/cartAdd', {
+					data: {
+						goods_id: goods_id,
+						num: num
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.errno == "200") {
+							alert(data.msg);
 							mui.openWindow({
 								url: 'cart.html',
 								show: {
 									aniShow: true
 								},
 							})
-						}else{
+						} else {
 							alert(data.msg);
 						}
 					},
-					error:function(xhr,type,errorThrown){
-						
+					error: function(xhr, type, errorThrown) {
+				
 					}
+<<<<<<< HEAD
 				 });	
 			})
 			//收藏
@@ -130,3 +254,26 @@
 		</script>
 	
 </html>
+=======
+				});
+			} else{
+				login();
+			}
+			
+		})
+	</script>
+		<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		mui('.mui-scroll-wrapper').scroll();
+		mui('body').on('shown', '.mui-popover', function(e) {
+			//console.log('shown', e.detail.id);//detail为当前popover元素
+		});
+		mui('body').on('hidden', '.mui-popover', function(e) {
+			//console.log('hidden', e.detail.id);//detail为当前popover元素
+		});
+	</script>
+
+</html>
+>>>>>>> 95ce63316f306e486b32557587b2ecb44725be7b
