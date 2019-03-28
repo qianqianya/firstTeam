@@ -28,21 +28,22 @@
 			<div class="mui-content-padded">
 				
 				<div id="box"> </div>
-				<a id="cart">购物车页面</a>
+				
 			</div>
+			<a id="cart">购物车页面</a>
 		</div>
 		<script src="js/jquery-3.2.1.min.js"></script>
 		<script src="js/mui.min.js"></script>
 		<script src="js/app.js"></script>
 		<script>
-			$('#cart').click(){
+			$('#cart').click(function(){
 				mui.openWindow({
 					url: 'cart.html',
 					show: {
 						aniShow: true
 					},
 				})
-			}
+			})
 			var _tr;
 			
 			mui.ajax({  

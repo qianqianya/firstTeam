@@ -75,10 +75,12 @@
 					success:function(data){ 
 						if(data.errno=="200"){
 							alert(data.msg); 
-							url: 'cart.html',
-							show: {
-								aniShow: true
-							},
+							mui.openWindow({
+								url: 'cart.html',
+								show: {
+									aniShow: true
+								},
+							})
 						}else{
 							alert(data.msg);
 						}
