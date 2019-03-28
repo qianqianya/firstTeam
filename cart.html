@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>购物车</title>
+	<link href="css/mui.min.css" rel="stylesheet" />
+    <link href="css/comm.css" rel="stylesheet" type="text/css" />
+    <link href="css/cartlist.css" rel="stylesheet" type="text/css" />
+	<link href="css/style.css" rel="stylesheet" />
+</head>
+<body>  <!--首页头部-->
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">购物车</h1>
+	</header>
+	<p style="border-top: 50px seashell solid;"></p> 
+	<!--首页头部 end-->
+    <div>
+        <div class='g-Cart-list' >
+		
+		</div>
+	   
+		<div id="mycartpay" class="g-Total-bt g-car-new">
+			<dl>
+				<dt class="gray6">
+					<p class="money-total">总金额：<em class="orange total" id="money"></em></p>
+				</dt>
+				<dd>
+					<a href="javascript:;" class="orangeBtn w_account">提交订单</a>
+				</dd>
+			</dl>
+		</div>
+	</div>
+</body>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script> 
+<!---商品加减算总数---->
+<script type="text/javascript">
+	$(function () {
+			var _tr;
+			mui.ajax('http://firstteam.qianqianya.xyz/cartList',{
+				// data:{		},
+				dataType:'json',//服务器返回json格式数据
+				type:'get',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				success:function(data){ 
+				$.each(data,function(i,value){  
+					if(value==''){
+							
+					}else{
+						_tr+="<ul id='cartBody'><li><s class='xuan current'></s><a class='fl u-Cart-img' href='/v44/product/12501977.do'>图片</a><div class='u-Cart-r'><a href='/v44/product/12501977.do' class='gray6'>"+value.goods_name+"</a><span class='gray9' id=''goods_price'>"+value.goods_price+"</span><div class='num-opt' style='float: left;'><em class='num-mius dis min'>-</em><input class='text_box' name='num' maxlength='6' type='text' value='"+value.c_num+"' codeid='12501977'><em class='num-add add'>+</em></div><div style='float: right;'><a href='javascript:;' style='border:1px orangered solid;padding:4px;margin-right: 50px;'>删除</a></div></div></li></ul>";					
+					}   
+				}); 
+					if(_tr==''){
+						
+					}else{
+						$('.g-Cart-list').html(_tr); 
+					}
+				},    
+				error:function(xhr,type,errorThrown){ 
+					// alert(errorThrown)
+				} 
+			});
+		
+		$(".add").click(function () {
+			var t = $(this).prev();
+			t.val(parseInt(t.val()) + 1);
+			GetCount();
+		})
+		$(".min").click(function () {
+			var t = $(this).next();
+			if(t.val()>1){
+				t.val(parseInt(t.val()) - 1);
+				GetCount();
+			}
+		})
+	})
+	</script>
+</html>
