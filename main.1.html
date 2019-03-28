@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+
+		<style>
+			ul {
+				font-size: 14px;
+				color: #8f8f94;
+			}
+			.mui-btn {
+				padding: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
+			<h1 class="mui-title">商品详情</h1>
+			<button id='setting' class=" mui-pull-right mui-btn-link">设置</button>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				
+				<div>
+					商品名称: <span class="goods_name"></span>
+				</div>
+				<div>
+					商品价格: <span class="goods_price"></span>
+				</div>
+				<div>
+					购买数量: <input type="text" style="height: 10px;width: 10px;">
+				</div>
+			</div>
+			<button>加入购物车</button>
+		</div>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="js/mui.min.js"></script>
+		<script src="js/app.js"></script>
+		<script>
+			document.addEventListener('plusready',function () {
+				
+			     var self  = plus.webview.currentWebview();
+			     goods_name = localStorage.getItem("goods_name");//获取
+				  
+				  goods_id =  self.goods_id;
+				
+				 mui.ajax('http://firstteam.qianqianya.xyz/api/goodsDetails',{
+				 	data:{
+				 		goods_id:goods_id
+				 	},
+				 	dataType:'json',//服务器返回json格式数据
+				 	type:'post',//HTTP请求类型
+				 	timeout:10000,//超时时间设置为10秒；
+				 	success:function(data){ 
+				 		$('.goods_name').html(data.goods_name);
+						$('.goods_price').html(data.goods_price);
+				 	},
+				 	error:function(xhr,type,errorThrown){
+				 		
+				 	}
+				 });
+				
+				 // localStorage.getItem('user_name')); 
+				
+			    },false);
+		</script>
+	</body>
+
+</html>

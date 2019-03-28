@@ -103,14 +103,20 @@
 						success:function(data){
 							if(data.errno==200){ 
 								alert(data.msg)
-								window.location.href = 'main.html';
+								mui.openWindow({
+									url: 'main.html',
+									show: {
+										aniShow: true
+									},
+								})
 								
 							}else{
 								alert(data.msg) 	
 							}
 						},
 						error:function(xhr,type,errorThrown){
-							alert(xhr);alert(type);alert(errorThrown);
+							alert('邮箱唯一');
+							 
 						}
 					})	
 			}
