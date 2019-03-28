@@ -140,8 +140,8 @@
 					alert('密码不能为空 ');
 					return false;
 				}
-				$.post(
-					'http://firstteam.qianqianya.xyz/api/login', {
+				/* $.post(
+					'http://passport.qianqianya.xyz/api/login', {
 						u_email: u_email,
 						u_pwd: u_pwd
 					},
@@ -151,7 +151,34 @@
 						storage["u_id"] = msg.u_id
 						window.location.href = 'main.html';
 					}
-				)
+				) */
+				var url = 'http://firstteam.qianqianya.xyz/api/login';
+				mui.ajax(url, {
+					data: {
+						u_email: u_email,
+						u_pwd: u_pwd
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型 
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.status == 1000) {
+							alert(data.msg);
+							var storage = window.localStorage;
+							storage["token"] = msg.token;
+							storage["u_id"] = msg.u_id;
+							window.location.href = 'main.html';
+						} else {
+							alert(data.msg);
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						alert(xhr);
+						alert(type);
+						alert(errorThrown);
+					}
+				});
 			})
 		</script>
 	</body>
