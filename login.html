@@ -146,11 +146,11 @@
 						u_pwd: u_pwd
 					},
 					function(data) {
-						if(data.ststus==1000){
+						if(data.status==1000){
 							alert(data.msg);
-							var storage = window.localStorage;
-							storage["token"] = data.token;
-							storage["u_id"] = data.u_id;
+ 							var storage = window.localStorage;
+ 							storage["token"] = data.token;
+ 							storage["u_id"] = data.u_id;
 							mui.openWindow({
 								url: 'main.html',
 								show: {
@@ -163,7 +163,6 @@
 						
 					},'json'
 				)
-		
 			})
 		</script>
 	</body>
