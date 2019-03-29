@@ -68,9 +68,11 @@
 						// alert(146); 
 						// alert(data.msg); 
 					} 
-			});  
+			});   
 			function onclicks(goods_id){
-							
+				var storage = window.localStorage;
+				storage["goods_id"] = goods_id;		
+					// alert(goods_id);
 				mui.openWindow({   
 				 	url: 'main.1.html',  
 					extras:{goods_id:goods_id}  
