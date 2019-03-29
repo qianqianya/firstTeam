@@ -125,7 +125,7 @@
 		$(".add").click(function () {
 			var t = $(this).prev();
 			t.val(parseInt(t.val()) + 1);
-			GetCount();
+			GetCount(); 
 		})
 		$(".min").click(function () {
 			var t = $(this).next();
@@ -151,7 +151,7 @@
 			})
 		})
 		// 提交订单  sub
-				$('#sub').click(function(){
+				$('#sub').click(function(){ 
 					  // 获取总价格   
 						var money = $('#money').html() 
 						var num = $('#num').val()
