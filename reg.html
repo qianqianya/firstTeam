@@ -48,6 +48,10 @@
 					<input id='account' type="text" class="mui-input-clear mui-input" placeholder="请输入账号">
 				</div>
 				<div class="mui-input-row">
+					<label>手机号</label>
+					<input id='tel' type="text" class="mui-input-clear mui-input" placeholder="请输入手机号">
+				</div>
+				<div class="mui-input-row">
 					<label>密码</label>
 					<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
 				</div>
@@ -73,11 +77,15 @@
 		<script>
 			function reg(){
 					var name=$('#account')[0].value;
+					var tel=$('#tel')[0].value;
 					var pwd=$('#password')[0].value;
 					var rpwd=$('#password_confirm')[0].value;
 					var email=$('#email')[0].value;
 					if(name==''){
 						alert('账号必填')
+					}
+					if(tel==''){
+						alert('手机号必填')
 					}
 					if(email==''){
 						alert('邮箱必填')
