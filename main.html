@@ -139,6 +139,7 @@
 			});
 			
 			
+			
 			var _tr;
 
 			mui.ajax({
@@ -179,7 +180,21 @@
 			};
 
 
-		
+			function checkLogin(){
+				mui.ajax({
+					url: 'http://firstteam.qianqianya.xyz/',
+					data: aa = 1,
+					dataType: 'json',
+					type: 'get',
+					success: function(msg) {
+						
+					}, 
+					error: function(data) {
+						// alert(146); 
+						// alert(data.msg); 
+					} 
+				});   
+			}
 		</script>
 		<script>
 			mui.init({
