@@ -16,7 +16,7 @@
 			.mui-btn {
 				padding: 10px;
 			}
-
+ 
 			.mui-popover {
 				height: 240px;
 			}
@@ -148,13 +148,40 @@
 							"</tr>";
 					})
 
-					$('#box').html(_tr); 
+
+ 
+					$('#box').html(_tr) 
 				}, 
 					error: function(data) {
 						// alert(146); 
 						// alert(data.msg); 
 					} 
-			});  
+			});   
+			function onclicks(goods_id){
+				var storage = window.localStorage;
+				storage["goods_id"] = goods_id;		
+					// alert(goods_id);
+				mui.openWindow({   
+				 	url: 'main.1.html',  
+					extras:{goods_id:goods_id}  
+
+					// $('#box').html(_tr)
+				});
+// 				error: function(data) {
+// 					// alert(146); 
+// 					// alert(data.msg); 
+// 				}
+				
+			};
+
+
+					// $('#box').html(_tr); 
+// 				}, 
+// 					error: function(data) {
+// 						// alert(146); 
+// 						// alert(data.msg); 
+// 					} 
+			
 				
 			function onclicks(goods_id){
 					
@@ -170,6 +197,7 @@
 					extras: {
 						goods_id: goods_id
 					}
+
 				});
 			};
 			
