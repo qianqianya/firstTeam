@@ -64,6 +64,9 @@
 								<a href="#">我的收藏</a>
 							</li>
 							<li class="mui-table-view-cell">
+								<a href="#" id='login'>去登陆</a>
+							</li>
+							<li class="mui-table-view-cell">
 								<a href="#">我的赞</a>
 							</li>
 							<li class="mui-table-view-cell">
@@ -90,6 +93,14 @@
 			$('#goods').click(function() {
 				mui.openWindow({
 					url: 'main.html',
+					show: {
+						aniShow: true
+					},
+				})
+			})
+			$('#login').click(function() {
+				mui.openWindow({
+					url: 'login.html',
 					show: {
 						aniShow: true
 					},
