@@ -92,9 +92,10 @@
 			<span style="margin-left: 3%;" id='like_name'></span>  
 			
 			<input type="text" value="" id="like_num" hidden  />
+
 			
 			
-		</div> 
+		</div>  
 		
 		</div>
 		
@@ -104,6 +105,9 @@
 				
 			</div>
 		</div>
+
+		</div> 
+
 	</body>
 	<script src="js/mui.min.js"></script> 
 		<script src="js/mui.enterfocus.js"></script>
@@ -237,75 +241,8 @@
  				}
 
 			});
-			document.addEventListener('plusready',function () {
-			     var self  = plus.webview.currentWebview();
-				 
-			     goods_name = localStorage.getItem("goods_name");//获取
-				  
-				  goods_id =  self.goods_id;
-				  
-				 mui.ajax('http://firstteam.qianqianya.xyz/api/goodsDetails',{
-				 	data:{
-				 		goods_id:goods_id
-				 	},
-				 	dataType:'json',//服务器返回json格式数据
-				 	type:'post',//HTTP请求类型
-				 	timeout:10000,//超时时间设置为10秒；
-				 	success:function(data){ 
-				 		$('.goods_name').html(data.goods_name);
-						$('.goods_price').html(data.goods_price);
-				 	},
-				 	error:function(xhr,type,errorThrown){
-				 		
-				 	}
-				 });	
-			},false);
-			
-			$('.btn').click(function() { 
-				var num = $('#num')[0].value;
-				
-				 mui.ajax('http://firstteam.qianqianya.xyz/cartAdd',{
-					data:{
-						goods_id:goods_id,
-						num:num
-					},
-					dataType:'json',//服务器返回json格式数据
-					type:'post',//HTTP请求类型
-					timeout:10000,//超时时间设置为10秒；
-					success:function(data){ 
-						if(data.errno=="200"){
-							alert(data.msg); 
-							mui.openWindow({
-								url: 'cart.html',
-								show: {
-									aniShow: true
-								},
-							})
-						}else{
-							alert(data.msg);
-						}
-					},
-					error:function(xhr,type,errorThrown){
-		 				
-					}
-				 });	
-			})
-			
-			// alert(status);.
-			
-			
 			
 		</script>
-	
-</html>
-
-
-		</div>
-	</body>
-	<script src="js/mui.min.js"></script>
-	<script src="js/mui.enterfocus.js"></script>
-	<script src="js/app.js"></script>
-	<script src="js/jquery-3.2.1.min.js"></script>
 	<script>
 		$('#set').click(function() {
 			mui.openWindow({
@@ -452,11 +389,8 @@
 				});	
 			})
 		</script>
-	
-</html>
-
 	</script>
-		<script>
+	<script>
 		mui.init({
 			swipeBack: true //启用右滑关闭功能
 		});

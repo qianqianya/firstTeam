@@ -134,26 +134,28 @@
 			$('#logout').click(function() {
 				var storage = window.localStorage;
 				var u_id = storage.u_id;
-				$.post(
-					"http://firstteam.qianqianya.xyz/quit", {
-						u_id: u_id
-					},
-					function(data) {
-						if(data.status==200){
-							alert(111);
+				mui.ajax({
+					url: 'http://firstteam.qianqianya.xyz/quit',
+					dataType: 'json',
+					type: 'get',
+					success: function(data) {
+						if(data.status=='200'){
+							alert(data.msg);
 							mui.openWindow({
-								url: 'login.html',
+								url: 'main.html',
 								show: {
 									aniShow: true
 								}
 							})
 						}else{
-							alert(222);
+							alert(data.msg);
 						}
+					}, 
+					error: function(data) {
 						
-					}
-				)
-			})
+					} 
+				});  
+			});
 			mui.init()
 		</script>
 		<script>
