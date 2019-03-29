@@ -21,12 +21,14 @@
 			</tbody>
 		</table>
 	</body>
-	<script src="js/jquery-3.2.1.min.js"></script>
-		<script src="js/mui.js"></script>
-		<script src="js/app.js"></script>	
-		<script type="text/javascript">
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/mui.min.js"></script>
+<script src="js/app.js"></script> 
+<script type="text/javascript">
 			mui.init()
-			$(function(){
+$(function(){
+	 
 				_url=window.location.href  
 				var uid_place=_url.lastIndexOf("uid=");
 				var uid_last_place=_url.lastIndexOf("&t")
@@ -40,7 +42,7 @@
 				var _tr=''
 				$.ajax({
 					url:"http://group_shop.tactshan.com/orderlist", 
-					data:{token:token,uid:uid},
+					data:{token:token,uid:uid},  
 					method:'POST',
 					dataType:'json',
 					success:function(msg){
@@ -54,15 +56,7 @@
  						$('#box').html(_tr+"<br>")
 						}			
 					})
-				})
-				$(document).on('click','.orderdetail',function(){
-					var uid=$("#uid").val();
-		 			var token=$("#token").val();
-					var _this=$(this);
-					var order_num=_this.attr('order_num');  	
-					var url='orderdetail.html?uid='+uid+'&token='+token+'&order_num='+order_num
-					location.href=url;	 
-				})		
+})
 				
-		</script>
+</script>
 </html>
