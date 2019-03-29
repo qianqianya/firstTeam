@@ -14,6 +14,21 @@
 			.mui-content {
 				padding: 10px;
 			}
+			.size{
+        float: left;
+        line-height: 80px;/*让黄色div中的文字内容垂直居中*/
+        text-align: center;/*让文字水平居中*/
+        /* position: absolute; */
+        margin-left: 20px;  
+			}
+			.size2{
+			float: left;
+			line-height: 100px;/*让黄色div中的文字内容垂直居中*/
+			text-align: center;/*让文字水平居中*/
+			position: absolute;
+			bottom: 10px;
+			margin-left: 100px;  
+				}
 		</style>
 		
 	</head>
@@ -77,7 +92,17 @@
 			<span style="margin-left: 3%;" id='like_name'></span>  
 			
 			<input type="text" value="" id="like_num" hidden  />
+			
+			
 		</div> 
+		
+		</div>
+		
+		<div   style="background-color: #BBBBBB;height: 141.5px;width:100%;margin-top: 84.5%;"> 
+			<span  class="size">商品浏览用户: </span>
+			<div id="hst_name" class="size2">
+				
+			</div>
 		</div>
 	</body>
 	<script src="js/mui.min.js"></script> 
@@ -89,7 +114,33 @@
 			u_id = storage.u_id;
 			goods_id = storage.goods_id;
 			// alert(goods_id);
+			
+			mui.ajax('http://firstteam.qianqianya.xyz/api/goodsHstList',{
+				data:{
+					goods_id:goods_id
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				success:function(data){
+					var _tr;
+					$.each(data, function(i, value) {
+					
+					_tr +=
+						'<td>&nbsp;'+value.u_name+'&nbsp;&nbsp;';  
+					})
+					 
+					
+					 
+					$('#hst_name').html(_tr) 
+					 
+				},
+				error:function(xhr,type,errorThrown){
+					
+				}
+			});
 
+		
 			mui.ajax('http://firstteam.qianqianya.xyz/api/likecheck',{
 				data:{
 					u_id:u_id,goods_id:goods_id
