@@ -162,10 +162,11 @@
 			$('#sub').click(function() {
 				//  获取商品数量 总金额
 				mui.ajax('http://firstteam.qianqianya.xyz/oradd', {
+					data:{money:money,num:num},
 					dataType: 'json', //服务器返回json格式数据
 					type: 'post', //HTTP请求类型
 					timeout: 10000, //超时时间设置为10秒；
-					success: function(data) {
+					success: function(data) {  
 						if (data.code == 200) {
 							alert(data.msg)
 							mui.openWindow({
@@ -176,8 +177,12 @@
 							})
 						} else {
 							alert(data.msg)
-						}
-					}
+						} 
+					},
+					error: function(data) {
+						alert(146); 
+						  alert(data.msg); 
+					} 
 				})
 			})
 
