@@ -16,9 +16,9 @@
 			.mui-btn {
 				padding: 10px;
 			}
-
+ 
 			.mui-popover {
-				height: 220px;
+				height: 240px;
 			}
 			.mui-content {
 				padding: 10px;
@@ -59,7 +59,7 @@
 		
 		</div>
 		
-			<div class="mui-content">
+		<div class="mui-content">
 			<div class="mui-content-padded">
 				
 				<div id="box"> </div>
@@ -81,13 +81,54 @@
 				})
 			})
 			$('#cart').click(function() {
+				var storage = window.localStorage;
+				var u_id=storage.u_id;
+				var token=storage.token;
+				//storage.clear();
+				if (u_id&&token) {
+					mui.openWindow({
+						url: 'cart.html',
+						show: {
+							aniShow: true
+						},
+					})
+				} else{
+					login();
+				}
+			});
+			$('#mycenter').click(function() {
+				var storage = window.localStorage;
+				var u_id=storage.u_id;
+				var token=storage.token;
+				//storage.clear();
+				if (u_id&&token) {
+					mui.openWindow({
+						url: 'mycenter.html',
+						show: {
+							aniShow: true
+						},
+					})
+				} else{
+					login();
+				}
+			});
+			function login(){
+				alert('请先登录');
 				mui.openWindow({
-					url: 'cart.html',
+					url: 'login.html',
 					show: {
 						aniShow: true
 					},
 				})
-			})
+			}
+			$('#login').click(function() {
+				mui.openWindow({
+					url: 'login.html',
+					show: {
+						autoShow: true
+					},
+				})
+			});
 			var _tr;
 
 			mui.ajax({
@@ -106,6 +147,8 @@
 							"</button></td>" +
 							"</tr>";
 					})
+
+
  
 					$('#box').html(_tr) 
 				}, 
@@ -118,23 +161,14 @@
 			function onclicks(goods_id) {
 				var storage = window.localStorage;
 				storage["goods_id"] = goods_id;		
-				// alert(goods_id);
-				mui.openWindow({
-					url: 'main.1.html',
-					extras: {
-						goods_id: goods_id
-					}
+				mui.openWindow({   
+				 	url: 'main.1.html',  
+					extras:{goods_id:goods_id}  
+				}); 
 
-				});
-			}
-			$('#mycenter').click(function() {
-				mui.openWindow({
-					url: 'mycenter.html',
-					show: {
-						autoShow: true
-					},
-				})
-			});
+			};
+
+
 		
 		</script>
 		<script>

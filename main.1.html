@@ -9,12 +9,13 @@
 		<link href="css/style.css" rel="stylesheet" />
 		<style>
 			.mui-popover {
-				height: 220px;
+				height: 180px;
 			}
 			.mui-content {
 				padding: 10px;
 			}
 		</style>
+		
 	</head>
 
 
@@ -31,9 +32,6 @@
 					<ul class="mui-table-view">
 						<li class="mui-table-view-cell">
 							<a href="#" id="mycenter">个人中心</a>
-						</li>
-						<li class="mui-table-view-cell">
-							<a href="#" id="cart">购物车</a>
 						</li>
 						<li class="mui-table-view-cell">
 							<a href="#">我的收藏</a>
@@ -59,11 +57,15 @@
 					商品价格: <span class="goods_price"></span>
 				</div>
 				<div>
-					购买数量:<input type="number" id="num" value="1" style="width: 65px;height: 30px;">
+					购买数量:<input type="text" id="num" value="1" style="width: 65px;height: 30px;">
 					<input type="hidden">
 				</div>
 			</div>
 			<button class="btn">加入购物车</button>
+
+
+			<button class='collect' id='collect'>收藏</button>
+			
 
 			
 			<div id="zan">
@@ -246,6 +248,7 @@
 	
 </html>
 
+
 		</div>
 	</body>
 	<script src="js/mui.min.js"></script>
@@ -262,21 +265,47 @@
 			})
 		})
 		$('#mycenter').click(function() {
-			mui.openWindow({
-				url: 'mycenter.html',
-				show: {
-					aniShow: true
-				},
-			})
-		})
+			var storage = window.localStorage;
+			var u_id=storage.u_id;
+			var token=storage.token;
+			//storage.clear();
+			if (u_id&&token) {
+				mui.openWindow({
+					url: 'mycenter.html',
+					show: {
+						aniShow: true
+					},
+				})
+			} else{
+				login();
+			}
+		});
 		$('#cart').click(function() {
+			var storage = window.localStorage;
+			var u_id=storage.u_id;
+			var token=storage.token;
+			//storage.clear();
+			if (u_id&&token) {
+				mui.openWindow({
+					url: 'cart.html',
+					show: {
+						aniShow: true
+
+					},
+				})
+			} else{
+				login();
+			}
+		});
+		function login(){
+			alert('请先登录');
 			mui.openWindow({
-				url: 'cart.html',
+				url: 'login.html',
 				show: {
 					aniShow: true
 				},
 			})
-		})
+		}
 		document.addEventListener('plusready', function() {
 			var self = plus.webview.currentWebview();
 			goods_name = localStorage.getItem("goods_name"); //获取
@@ -304,32 +333,77 @@
 			var num = $('#num')[0].value;
 			var self = plus.webview.currentWebview();
 			goods_id = self.goods_id;
-			mui.ajax('http://firstteam.qianqianya.xyz/cartAdd', {
-				data: {
-					goods_id: goods_id,
-					num: num
-				},
-				dataType: 'json', //服务器返回json格式数据
-				type: 'post', //HTTP请求类型
-				timeout: 10000, //超时时间设置为10秒；
-				success: function(data) {
-					if (data.errno == "200") {
-						alert(data.msg);
-						mui.openWindow({
-							url: 'cart.html',
-							show: {
-								aniShow: true
-							},
-						})
-					} else {
-						alert(data.msg);
+			var storage = window.localStorage;
+			var u_id=storage.u_id;
+			var token=storage.token;
+			//storage.clear();
+			if (u_id&&token) {
+				mui.ajax('http://firstteam.qianqianya.xyz/cartAdd', {
+					data: {
+						goods_id: goods_id,
+						num: num
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						if (data.errno == "200") {
+							alert(data.msg);
+							mui.openWindow({
+								url: 'cart.html',
+								show: {
+									aniShow: true
+								},
+							})
+						} else {
+							alert(data.msg);
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+				
 					}
-				},
-				error: function(xhr, type, errorThrown) {
 
-				}
-			});
+				 });
+			} else{
+				login();
+			}
+					 	
 		})
+			//收藏
+			$('.collect').click(function(){
+				var self  = plus.webview.currentWebview();
+				goods_id =  self.goods_id;
+				var url='http://firstteam.qianqianya.xyz/collect'
+				mui.ajax(url,{
+					data:{
+						goods_id:goods_id,
+						u_id : u_id,
+						token : token,
+						status: 1
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					success:function(data){ 
+						if(data.errno=="200"){
+							alert(data.msg); 
+						}else{
+							alert(data.msg);
+						}
+					},
+					
+					error:function(xhr,type,errorThrown){
+						$("#collect").css('background-color',' #A94442')
+						//$("#collect").attr('g_type','1')
+						$("#collect").text("已收藏")
+
+					}
+				});	
+			})
+		</script>
+	
+</html>
+
 	</script>
 		<script>
 		mui.init({
