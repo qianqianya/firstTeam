@@ -84,6 +84,7 @@
 				var storage = window.localStorage;
 				var u_id=storage.u_id;
 				var token=storage.token;
+				//storage.clear();
 				if (u_id&&token) {
 					mui.openWindow({
 						url: 'cart.html',
@@ -99,6 +100,7 @@
 				var storage = window.localStorage;
 				var u_id=storage.u_id;
 				var token=storage.token;
+				//storage.clear();
 				if (u_id&&token) {
 					mui.openWindow({
 						url: 'mycenter.html',
@@ -161,23 +163,6 @@
 					extras:{goods_id:goods_id}  
 				});
 			}
-			$('#mycenter').click(function(){
-// 							var storage = window.localStorage;
-// 								var u_id = storage.u_id;
-				// 				alert(u_id);
-				mui.openWindow({ 
-				url: 'mycenter.html', 
-				show:{
-				  autoShow:true  
-
-				},
-				error: function(data) {
-					// alert(146); 
-					// alert(data.msg); 
-				}
-				});
-			})
-
 			function onclicks(goods_id) {
 
 				mui.openWindow({
