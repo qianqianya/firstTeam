@@ -8,13 +8,21 @@
 		<link href="css/mui.min.css" rel="stylesheet" />
 
 		<style>
-			ul { 
+			ul {
 				font-size: 14px;
 				color: #8f8f94;
-			} 
+			}
+
 			.mui-btn {
 				padding: 10px;
-			}6
+			}
+
+			.mui-popover {
+				height: 220px;
+			}
+			.mui-content {
+				padding: 10px;
+			}
 		</style>
 	</head>
 
@@ -22,22 +30,57 @@
 		<header class="mui-bar mui-bar-nav" style="padding-right: 15px;">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">商品</h1>
-			<button id='setting' class=" mui-pull-right mui-btn-link">设置   </button>
-			<button id='mycenter' class=" mui-pull-right mui-btn-link">个人中心   &nbsp;&nbsp;</button>
+			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
+			 
 		</header>
-		<div class="mui-content">
+		<div id="topPopover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a href="#" id="mycenter">个人中心</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a href="#" id="cart">购物车</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a href="#">我的收藏</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a href="#">我的赞</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a id='set'>设置</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		
+		</div>
+		
+			<div class="mui-content">
 			<div class="mui-content-padded">
 				
 				<div id="box"> </div>
 				
 			</div>
-			<a id="cart">购物车页面</a>
 		</div>
+
+		
 		<script src="js/jquery-3.2.1.min.js"></script>
 		<script src="js/mui.min.js"></script>
 		<script src="js/app.js"></script>
 		<script>
-			$('#cart').click(function(){
+			$('#set').click(function() {
+				mui.openWindow({
+					url: 'setting.html',
+					show: {
+						aniShow: true
+					},
+				})
+			})
+			$('#cart').click(function() {
 				mui.openWindow({
 					url: 'cart.html',
 					show: {
@@ -46,22 +89,24 @@
 				})
 			})
 			var _tr;
-			
-			mui.ajax({  
-					url: 'http://firstteam.qianqianya.xyz/api/goodsList',  
-					data:aa=1 ,   
-					dataType: 'json',  
-					type: 'get',  
-					success:function(msg){
-					$.each(msg,function(i,value){
+
+			mui.ajax({
+				url: 'http://firstteam.qianqianya.xyz/api/goodsList',
+				data: aa = 1,
+				dataType: 'json',
+				type: 'get',
+				success: function(msg) {
+					$.each(msg, function(i, value) {
 						var goods_name = value.goods_name;
-						_tr+=
-							"<tr>"+
-								"<td>"+goods_name+"</td>"+
-								"<td>"+value.goods_price+"</td>"+ 
-								"<td><button type='button' onclick='onclicks("+value.goods_id+")' class='goods_id'>商品详情"+"</button></td>"+
+						_tr +=
+							"<tr>" +
+							"<td>" + goods_name + "</td>" +
+							"<td>" + value.goods_price + "</td>" +
+							"<td><button type='button' onclick='onclicks(" + value.goods_id + ")' class='goods_id'>商品详情" +
+							"</button></td>" +
 							"</tr>";
 					})
+ 
 					$('#box').html(_tr) 
 				}, 
 					error: function(data) {
@@ -76,21 +121,47 @@
 				mui.openWindow({   
 				 	url: 'main.1.html',  
 					extras:{goods_id:goods_id}  
+
+					// $('#box').html(_tr)
+				});
+// 				error: function(data) {
+// 					// alert(146); 
+// 					// alert(data.msg); 
+// 				}
+				
+			};
+
+			function onclicks(goods_id) {
+
+				mui.openWindow({
+					url: 'main.1.html',
+					extras: {
+						goods_id: goods_id
+					}
+
 				});
 			}
-			$('#mycenter').click(function(){
-// 							var storage = window.localStorage;
-// 								var u_id = storage.u_id;
-				// 				alert(u_id);
-				mui.openWindow({ 
-				url: 'mycenter.html', 
-				show:{
-				  autoShow:true  
-				},
-				// extras:{u_id:u_id} 
+			$('#mycenter').click(function() {
+				mui.openWindow({
+					url: 'mycenter.html',
+					show: {
+						autoShow: true
+					},
 				})
 			});
-			
+		
+		</script>
+		<script>
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			mui('.mui-scroll-wrapper').scroll();
+			mui('body').on('shown', '.mui-popover', function(e) {
+				//console.log('shown', e.detail.id);//detail为当前popover元素
+			});
+			mui('body').on('hidden', '.mui-popover', function(e) {
+				//console.log('hidden', e.detail.id);//detail为当前popover元素
+			});
 		</script>
 	</body>
 
