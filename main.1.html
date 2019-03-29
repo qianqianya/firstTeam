@@ -89,7 +89,7 @@
 			u_id = storage.u_id;
 			goods_id = storage.goods_id;
 			// alert(goods_id);
-
+			//浏览次数
 			mui.ajax('http://firstteam.qianqianya.xyz/browse',{
 				data:{
 					goods_id:goods_id
@@ -104,7 +104,7 @@
 					
 				}
 			});
-
+			//赞
 			mui.ajax('http://firstteam.qianqianya.xyz/api/likecheck',{
 				data:{
 					u_id:u_id,goods_id:goods_id
@@ -148,7 +148,7 @@
 					
 				}
 			});
-			
+			//点赞
 			$('#zan').click(function(){
 				var status = $('#status')[0].value; 
 				    like_num = $('#like_num')[0].value;
@@ -254,6 +254,7 @@
 				},
 			})
 		}
+		//商品详情
 		document.addEventListener('plusready', function() {
 			var self = plus.webview.currentWebview();
 			goods_name = localStorage.getItem("goods_name"); //获取
@@ -276,7 +277,8 @@
 				}
 			});
 		}, false);
-
+		
+		//购物车添加
 		$('.btn').click(function() {
 			var num = $('#num')[0].value;
 			var self = plus.webview.currentWebview();
@@ -317,37 +319,37 @@
 			}
 					 	
 		})
-			//收藏
-			$('.collect').click(function(){
-				var self  = plus.webview.currentWebview();
-				goods_id =  self.goods_id;
-				var url='http://firstteam.qianqianya.xyz/collect'
-				mui.ajax(url,{
-					data:{
-						goods_id:goods_id,
-						u_id : u_id,
-						token : token,
-						status: 1
-					},
-					dataType:'json',//服务器返回json格式数据
-					type:'post',//HTTP请求类型
-					timeout:10000,//超时时间设置为10秒；
-					success:function(data){ 
-						if(data.errno=="200"){
-							alert(data.msg); 
-						}else{
-							alert(data.msg);
-						}
-					},
-					
-					error:function(xhr,type,errorThrown){
-						$("#collect").css('background-color',' #A94442')
-						//$("#collect").attr('g_type','1')
-						$("#collect").text("已收藏")
-
+		//收藏
+		$('.collect').click(function(){
+			var self  = plus.webview.currentWebview();
+			goods_id =  self.goods_id;
+			var url='http://firstteam.qianqianya.xyz/collect'
+			mui.ajax(url,{
+				data:{
+					goods_id:goods_id,
+					u_id : u_id,
+					token : token,
+					status: 1
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				success:function(data){ 
+					if(data.errno=="200"){
+						alert(data.msg); 
+					}else{
+						alert(data.msg);
 					}
-				});	
-			})
+				},
+				
+				error:function(xhr,type,errorThrown){
+					$("#collect").css('background-color',' #A94442')
+					//$("#collect").attr('g_type','1')
+					$("#collect").text("已收藏")
+
+				}
+			});	
+		})
 		</script>
 	</script>
 	
