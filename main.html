@@ -16,7 +16,7 @@
 			.mui-btn {
 				padding: 10px;
 			}
-
+ 
 			.mui-popover {
 				height: 240px;
 			}
@@ -46,6 +46,9 @@
 						</li>
 						<li class="mui-table-view-cell">
 							<a href="#">我的收藏</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a id="login">登陆页面</a>
 						</li>
 						<li class="mui-table-view-cell">
 							<a href="#">我的赞</a>
@@ -80,10 +83,14 @@
 					},
 				})
 			})
+			
+			
+			
 			$('#cart').click(function() {
 				var storage = window.localStorage;
 				var u_id=storage.u_id;
 				var token=storage.token;
+				//storage.clear();
 				if (u_id&&token) {
 					mui.openWindow({
 						url: 'cart.html',
@@ -95,10 +102,13 @@
 					login();
 				}
 			});
+			
+		
 			$('#mycenter').click(function() {
 				var storage = window.localStorage;
 				var u_id=storage.u_id;
 				var token=storage.token;
+				//storage.clear();
 				if (u_id&&token) {
 					mui.openWindow({
 						url: 'mycenter.html',
@@ -127,6 +137,9 @@
 					},
 				})
 			});
+			
+			
+			
 			var _tr;
 
 			mui.ajax({
@@ -146,49 +159,42 @@
 							"</tr>";
 					})
 
-					$('#box').html(_tr); 
+
+ 
+					$('#box').html(_tr) 
 				}, 
+				error: function(data) {
+					// alert(146); 
+					// alert(data.msg); 
+				} 
+			});   
+			
+			function onclicks(goods_id) {
+				var storage = window.localStorage;
+				storage["goods_id"] = goods_id;		
+				mui.openWindow({   
+				 	url: 'main.1.html',  
+					extras:{goods_id:goods_id}  
+				}); 
+
+			};
+
+
+			function checkLogin(){
+				mui.ajax({
+					url: 'http://firstteam.qianqianya.xyz/',
+					data: aa = 1,
+					dataType: 'json',
+					type: 'get',
+					success: function(msg) {
+						
+					}, 
 					error: function(data) {
 						// alert(146); 
 						// alert(data.msg); 
 					} 
-			});  
-				
-			function onclicks(goods_id){
-					
-				mui.openWindow({   
-				 	url: 'main.1.html',  
-					extras:{goods_id:goods_id}  
-				});
+				});   
 			}
-			$('#mycenter').click(function(){
-// 							var storage = window.localStorage;
-// 								var u_id = storage.u_id;
-				// 				alert(u_id);
-				mui.openWindow({ 
-				url: 'mycenter.html', 
-				show:{
-				  autoShow:true  
-
-				},
-				error: function(data) {
-					// alert(146); 
-					// alert(data.msg); 
-				}
-				});
-			})
-
-			function onclicks(goods_id) {
-
-				mui.openWindow({
-					url: 'main.1.html',
-					extras: {
-						goods_id: goods_id
-					}
-				});
-			};
-			
-		
 		</script>
 		<script>
 			mui.init({
