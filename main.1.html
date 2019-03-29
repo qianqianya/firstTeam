@@ -60,6 +60,7 @@
 					购买数量:<input type="text" id="num" value="1" style="width: 65px;height: 30px;">
 					<input type="hidden">
 				</div>
+				<div style="color: #F22F2F">浏览<a id="browse"></a>次</div>
 			</div>
 			<button class="btn">加入购物车</button>
 
@@ -88,6 +89,21 @@
 			u_id = storage.u_id;
 			goods_id = storage.goods_id;
 			// alert(goods_id);
+
+			mui.ajax('http://firstteam.qianqianya.xyz/browse',{
+				data:{
+					goods_id:goods_id
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				success:function(data){ 
+					$('#browse').html(data);
+				},
+				error:function(xhr,type,errorThrown){
+					
+				}
+			});
 
 			mui.ajax('http://firstteam.qianqianya.xyz/api/likecheck',{
 				data:{
@@ -334,6 +350,7 @@
 			})
 		</script>
 	</script>
+	
 	<script>
 		mui.init({
 			swipeBack: true //启用右滑关闭功能
