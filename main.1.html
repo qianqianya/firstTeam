@@ -84,7 +84,8 @@
 		<script src="js/mui.enterfocus.js"></script>
 		<script src="js/app.js"></script>
 		<script src="js/jquery-3.2.1.min.js"></script>
-		<script>
+
+		 <script>
 			var storage = window.localStorage;
 			u_id = storage.u_id;
 			goods_id = storage.goods_id;
@@ -147,8 +148,52 @@
 				error:function(xhr,type,errorThrown){
 					
 				}
+			}); 
+			//赞
+			mui.ajax('http://firstteam.qianqianya.xyz/api/likecheck',{
+				data:{
+					u_id:u_id,goods_id:goods_id
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				success:function(data){
+					// alert(data.like_status);
+					if(data.like_status==1){ 
+						if(data.status==2){
+							// alert(data.status);
+							$('#zan').html("<input type='text' id='status' value='1' hidden><a href='#'><input type='image' src='images/zan.png' style='display:block;width:40px;height:40px;'/></a>");
+							$('#like_name').html(data.like_num);
+							$('#like_num')[0].value=data.like_num;
+							$('#status')[0].value = 1;    
+						}else{ 
+							// alert(1); 
+							$('#zan').html("<input type='text' id='status' value='2' hidden><a href='#'><input type='image' src='images/xin3.png' style='display:block;width:40px;height:40px;'/></a>");
+							$('#like_name').html(data.like_num);
+							$('#like_num')[0].value=data.like_num;  
+							$('#status')[0].value = 2;  
+						}
+		
+						
+					}else if(data.like_status==2){
+						// alert(2);
+						$('#zan').html("<input type='text' id='status' value='1' hidden><a href='#'><input type='image' src='images/xin3.png' style='display:block;width:40px;height:40px;'/></a>");
+						$('#like_name').html(data.like_num);
+						$('#like_num')[0].value=data.like_num;
+						$('#status')[0].value = 1;  
+					}else if(data.like_status==3){
+						// alert(3);
+						$('#zan').html("<input type='text' id='status' value='1' hidden><a href='#'><input type='image' src='images/zan.png' style='display:block;width:40px;height:40px;'/></a>");
+						$('#like_name').html(data.like_num);
+						$('#like_num')[0].value=data.like_num;
+						$('#status')[0].value = 1;  
+					}
+				},
+				error:function(xhr,type,errorThrown){
+					
+				}
 			});
-			
+			//点赞
 			$('#zan').click(function(){
 				var status = $('#status')[0].value; 
 				    like_num = $('#like_num')[0].value;
@@ -199,7 +244,6 @@
  						}
  					});
  				}
-
 			});
 			
 		</script>
@@ -254,6 +298,7 @@
 				},
 			})
 		}
+		<!-- //商品详情
 		document.addEventListener('plusready', function() {
 			var self = plus.webview.currentWebview();
 			goods_name = localStorage.getItem("goods_name"); //获取
@@ -276,7 +321,8 @@
 				}
 			});
 		}, false);
-
+		 -->
+		//购物车添加
 		$('.btn').click(function() {
 			var num = $('#num')[0].value;
 			var self = plus.webview.currentWebview();
@@ -316,53 +362,40 @@
 				login();
 			}
 					 	
-		})
-			//收藏
-			$('.collect').click(function(){
-				var self  = plus.webview.currentWebview();
-				goods_id =  self.goods_id;
-				var url='http://firstteam.qianqianya.xyz/collect'
-				mui.ajax(url,{
-					data:{
-						goods_id:goods_id,
-						u_id : u_id,
-						token : token,
-						status: 1
-					},
-					dataType:'json',//服务器返回json格式数据
-					type:'post',//HTTP请求类型
-					timeout:10000,//超时时间设置为10秒；
-					success:function(data){ 
-						if(data.errno=="200"){
-							alert(data.msg); 
-						}else{
-							alert(data.msg);
-						}
-					},
-					
-					error:function(xhr,type,errorThrown){
-						$("#collect").css('background-color',' #A94442')
-						//$("#collect").attr('g_type','1')
-						$("#collect").text("已收藏")
-
+		}) 
+		//收藏
+		$('.collect').click(function(){
+			var self  = plus.webview.currentWebview();
+			goods_id =  self.goods_id;
+			var url='http://firstteam.qianqianya.xyz/collect'
+			mui.ajax(url,{
+				data:{
+					goods_id:goods_id,
+					u_id : u_id,
+					token : token,
+					status: 1
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				success:function(data){ 
+					if(data.errno=="200"){
+						alert(data.msg); 
+					}else{
+						alert(data.msg);
 					}
-				});	
-			})
+				},
+				
+				error:function(xhr,type,errorThrown){
+					$("#collect").css('background-color',' #A94442')
+					//$("#collect").attr('g_type','1')
+					$("#collect").text("已收藏")
+
+				}
+			});	
+		}) 
 		</script>
 	</script>
 	
-	<script>
-		mui.init({
-			swipeBack: true //启用右滑关闭功能
-		});
-		mui('.mui-scroll-wrapper').scroll();
-		mui('body').on('shown', '.mui-popover', function(e) {
-			//console.log('shown', e.detail.id);//detail为当前popover元素
-		});
-		mui('body').on('hidden', '.mui-popover', function(e) {
-			//console.log('hidden', e.detail.id);//detail为当前popover元素
-		});
-	</script>
-
 </html>
 
