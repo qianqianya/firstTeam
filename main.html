@@ -172,6 +172,21 @@
 			function onclicks(goods_id) {
 				var storage = window.localStorage;
 				storage["goods_id"] = goods_id;		
+				u_id = storage.u_id;
+				mui.ajax('http://firstteam.qianqianya.xyz/api/goodsHstAdd',{
+					data:{
+						goods_id:goods_id,u_id:u_id
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					success:function(data){
+						
+					},
+					error:function(xhr,type,errorThrown){
+						
+					}
+				});
 				mui.openWindow({   
 				 	url: 'main.1.html',  
 					extras:{goods_id:goods_id}  

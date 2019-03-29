@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html> 
 
 	<head>
 		<meta charset="utf-8">
@@ -16,10 +16,10 @@
 			}
 			.size{
 				float: left;
-				line-height: 80px;/*让黄色div中的文字内容垂直居中*/
+				line-height: 100px;/*让黄色div中的文字内容垂直居中*/
 				text-align: center;/*让文字水平居中*/
 				/* position: absolute; */
-				margin-left: 20px;  
+				margin-left: 10px;  
 			}
 			.size2{
 				float: left;
@@ -27,7 +27,7 @@
 				text-align: center;/*让文字水平居中*/
 				position: absolute;
 				bottom: 10px;
-				margin-left: 100px
+				margin-left: 80px
 				}
 		</style>
 		
@@ -93,7 +93,7 @@
 			<span style="margin-left: 3%;" id='like_name'></span>  
 			
 			<input type="text" value="" id="like_num" hidden  />
-			<div   style="background-color: #BBBBBB;height: 141.5px;width:100%;margin-top: 84.5%;"> 
+			<div   style="height: 145.5px;width:100%;margin-top: 82%;"> 
 			<span  class="size">商品浏览用户: </span>
 			<div id="hst_name" class="size2">
 				
@@ -182,11 +182,11 @@
 						
 					}else if(data.like_status==2){
 						// alert(2);
-						$('#zan').html("<input type='text' id='status' value='1' hidden><a href='#'><input type='image' src='images/xin3.png' style='display:block;width:40px;height:40px;'/></a>");
+						$('#zan').html("<input type='text' id='status' value='1' hidden><a href='#'><input type='image' src='images/zan.png' style='display:block;width:40px;height:40px;'/></a>");
 						$('#like_name').html(data.like_num);
 						$('#like_num')[0].value=data.like_num;
-						$('#status')[0].value = 1;  
-					}else if(data.like_status==3){
+						$('#status')[0].value = 1;   
+					}else if(data.like_status==3){ 
 						// alert(3);
 						$('#zan').html("<input type='text' id='status' value='1' hidden><a href='#'><input type='image' src='images/zan.png' style='display:block;width:40px;height:40px;'/></a>");
 						$('#like_name').html(data.like_num);
