@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.css" rel="stylesheet" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<style>
+			.mui-popover {
+				height: 220px;
+			}
+			.mui-content {
+				padding: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">用户中心</h1>
+			<a id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<div style="width:345px; height:70px; border:solid ghostwhite 1px; background-color:ghostwhite; margin-top:-18px;">
+					<p style="margin-top:30px;margin-left:30px;">昵称 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<span class="user_name"></span>
+					</p>
+
+					<h4 style="margin-top:-30px;margin-left:270px;"></h4>
+				</div><br>
+				<div style="width:345px; height:40px; border:solid ghostwhite 1px; background-color:ghostwhite; margin-top:-18px;">
+					<p style="margin-top:10px;margin-left:30px;">手机号 &nbsp;&nbsp;
+						<span class="user_phone"></span>
+					</p>
+					<p style="margin-top:-30px;margin-left:260px;"></p>
+				</div><br><br>
+				<div style="width:345px; height:40px; border:solid ghostwhite 1px; background-color:ghostwhite; margin-top:-18px;">
+					<p style="margin-top:10px;margin-left:30px;">email &nbsp;&nbsp;&nbsp;&nbsp;
+						<span class="user_email"></span>
+					</p>
+					<p style="margin-top:-30px;margin-left:260px;"></p>
+				</div><br><br>
+				<div>
+					<button id='logout' class="mui-btn mui-btn-yellow mui-btn-primary" style="width:345px;">注销</button>
+				</div>
+			</div>
+			<div id="topPopover" class="mui-popover">
+				<div class="mui-popover-arrow"></div>
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<ul class="mui-table-view">
+							<li class="mui-table-view-cell">
+								<a href="#" id="goods">商品页面</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="#" id="cart">购物车</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="#">我的收藏</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a href="#">我的赞</a>
+							</li>
+							<li class="mui-table-view-cell">
+								<a id='set'>设置</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript">
+			$('#set').click(function() {
+				mui.openWindow({
+					url: 'setting.html',
+					show: {
+						aniShow: true
+					},
+				})
+			})
+			$('#goods').click(function() {
+				mui.openWindow({
+					url: 'main.html',
+					show: {
+						aniShow: true
+					},
+				})
+			})
+			$('#cart').click(function() {
+				mui.openWindow({
+					url: 'cart.html',
+					show: {
+						aniShow: true
+					},
+				})
+			})
+
+			document.addEventListener('plusready', function() {
+				// var self  = plus.webview.currentWebview();
+				var storage = window.localStorage;
+				u_id = storage.u_id;
+				mui.ajax('http://firstteam.qianqianya.xyz/api/mycenter', {
+					data: {
+						u_id: u_id
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					success: function(data) {
+						// alert(data.u_id); 
+						$('.user_name').html(data.u_name);
+						$('.user_phone').html(data.u_tel);
+						$('.user_email').html(data.u_email);
+					},
+					error: function(xhr, type, errorThrown) {
+
+					}
+				});
+				// localStorage.getItem('user_name')); 
+
+			}, false);
+
+
+
+			$('#logout').click(function() {
+				var storage = window.localStorage;
+				var u_id = storage.u_id;
+				mui.ajax({
+					url: 'http://firstteam.qianqianya.xyz/quit',
+					dataType: 'json',
+					type: 'get',
+					success: function(data) {
+						if(data.status=='200'){
+							alert(data.msg);
+							mui.openWindow({
+								url: 'main.html',
+								show: {
+									aniShow: true
+								}
+							})
+						}else{
+							alert(data.msg);
+						}
+					}, 
+					error: function(data) {
+						
+					} 
+				});  
+			});
+			mui.init()
+		</script>
+		<script>
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			mui('.mui-scroll-wrapper').scroll();
+			mui('body').on('shown', '.mui-popover', function(e) {
+				//console.log('shown', e.detail.id);//detail为当前popover元素
+			});
+			mui('body').on('hidden', '.mui-popover', function(e) {
+				//console.log('hidden', e.detail.id);//detail为当前popover元素
+			});
+		</script>
+
+	</body>
+
+</html>

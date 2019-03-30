@@ -4,6 +4,58 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title>购物车</title>
+		<script type="text/javascript">
+			function cartDel(c_id){
+				mui.ajax('http://firstteam.qianqianya.xyz/cartDel',{
+					data:{	
+						c_id:c_id,
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					success:function(data){ 
+						if(data.status=="200"){
+							alert(data.msg);
+							cartList();
+						}else{ 
+							alert(data.msg); 
+						}
+					}, 
+					error:function(xhr,type,errorThrown){ 
+						// alert(errorThrown)
+					}  
+				});
+			} 
+			var _tr;
+			function cartList(){
+			mui.ajax('http://firstteam.qianqianya.xyz/cartList', {
+				// data:{		},
+				dataType: 'json', //服务器返回json格式数据
+				type: 'get', //HTTP请求类型
+				timeout: 10000, //超时时间设置为10秒；
+				success: function(data) {
+					$.each(data, function(i, value) {
+						if (value == '') {} else {
+							price += value.goods_price * value.c_num + ","; 
+							num += value.c_num + ",";
+							_tr +=
+								"<ul id='cartBody'><li><s class='xuan current'></s><a class='fl u-Cart-img' href='/v44/product/12501977.do'>图片</a><div class='u-Cart-r'><a href='/v44/product/12501977.do' class='gray6'>" +
+								value.goods_name + "</a><span class='gray9' id=''goods_price'>" + value.goods_price +
+								"</span><div class='num-opt' style='float: left;'><em class='num-mius dis min'>-</em><input class='text_box' name='num' maxlength='6' type='text' value='" +
+								value.c_num +
+								"' codeid='12501977'><em class='num-add add'>+</em></div><div style='float: right;'><a href='javascript:;' onclick='cartDel("+value.c_id+")' style='border:1px orangered solid;padding:4px;margin-right: 50px;'>删除</a></div></div></li></ul>";
+						}
+					});
+					$('.g-Cart-list').html(_tr);
+				},
+				error: function(xhr, type, errorThrown) {
+					// alert(errorThrown)
+				} 
+			}); 
+
+		}
+		
+	</script>
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<link href="css/comm.css" rel="stylesheet" type="text/css" />
 		<link href="css/cartlist.css" rel="stylesheet" type="text/css" />
@@ -69,6 +121,7 @@
 	<!---商品加减算总数---->
 	<script type="text/javascript">
 		$(function() {
+			
 			var _tr;
 			mui.ajax('http://firstteam.qianqianya.xyz/cartList', {
 				// data:{		},
@@ -82,14 +135,14 @@
 					var num = '';
 					$.each(data, function(i, value) {
 						if (value == '') {} else {
-							price += value.goods_price * value.c_num + ",";
+							price += value.goods_price * value.c_num + ","; 
 							num += value.c_num + ",";
 							_tr +=
 								"<ul id='cartBody'><li><s class='xuan current'></s><a class='fl u-Cart-img' href='/v44/product/12501977.do'>图片</a><div class='u-Cart-r'><a href='/v44/product/12501977.do' class='gray6'>" +
 								value.goods_name + "</a><span class='gray9' id=''goods_price'>" + value.goods_price +
 								"</span><div class='num-opt' style='float: left;'><em class='num-mius dis min'>-</em><input class='text_box' name='num' maxlength='6' type='text' value='" +
 								value.c_num +
-								"' codeid='12501977'><em class='num-add add'>+</em></div><div style='float: right;'><a href='javascript:;' style='border:1px orangered solid;padding:4px;margin-right: 50px;'>删除</a></div></div></li></ul>";
+								"' codeid='12501977'><em class='num-add add'>+</em></div><div style='float: right;'><a href='javascript:;' onclick='cartDel("+value.c_id+")' style='border:1px orangered solid;padding:4px;margin-right: 50px;'>删除</a></div></div></li></ul>";
 						}
 					});
 
@@ -151,6 +204,7 @@
 					},
 				})
 			})
+			
 			// 提交订单  sub
 			$('#sub').click(function() {
 				// 获取总价格   
